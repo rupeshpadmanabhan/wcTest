@@ -65,29 +65,29 @@
                 </div>
             </div>
             <input type="button" class="add-row btn btn-primary" value="Add Row"> - <button type="button" class="delete-row btn btn-danger">Delete Row</button>
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" id="tableid">
                 <thead>
                 <tr>
-                                        <th>To Remove</th>
-                                        <th>Product</th>
-                                        <th>No Of Quantity</th>   
-                                                                       
-                                    </tr>  
+                    <th>To Remove</th>
+                    <th>Product</th>
+                    <th>No Of Quantity</th>   
+                                                    
+                </tr>  
                 </thead>
-                                <tbody id="emp_details">
-                                                 
-                                    <tr>													
-                                    <td><input type='checkbox' name='record[]'></td>
-                                        <td><select name='product_id[]' class='form-control' required> 
-                                        @foreach($data as $val)
-                                                <option value='{{ $val->id }}'>{{ $val->name }}</option>
-                                            @endforeach
-                                            </select></td>
-                                        <td><input required type='number' name='qty[]' class="form-control"></td>   
-                                                          									
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <tbody>
+                                        
+                        <tr>													
+                        <td><input type='checkbox' name='record[]'></td>
+                            <td><select name='product_id[]' class='form-control' required> 
+                            @foreach($data as $val)
+                                    <option value='{{ $val->id }}'>{{ $val->name }}</option>
+                                @endforeach
+                                </select></td>
+                            <td><input required type='number' name='qty[]' class="form-control"></td>   
+                                                                                
+                        </tr>
+                    </tbody>
+                </table>
 
 
 
@@ -114,23 +114,25 @@ $(document).ready(function()
 {  
     $(".add-row").click(function()
     {  
-        $( "table tbody#emp_details" ).clone().appendTo( "table tbody#emp_details" );
+        var $table = $('#tableid');
+        var new_line = $table.find('tr:eq(1)').clone();
+        $table.append(new_line);
 
     });
 
    // Find and remove selected table rows
    $(".delete-row").click(function()
     {
-        var row_count         = $("#emp_details").find('input[name="record[]"]').length;
+        var row_count         = $("#tableid").find('input[name="record[]"]').length;
         var checked_row_count = $('[name="record[]"]:checked').length;
  
         if(row_count != checked_row_count)
         {
-            $("#emp_details").find('input[name="record[]"]').each(function()
+            $("#tableid").find('input[name="record[]"]').each(function()
             {
                 if($(this).is(":checked"))
                 {
-                    $(this).parents("#emp_details tr").remove();
+                    $(this).parents("#tableid tr").remove();
                 }
             });
         }
