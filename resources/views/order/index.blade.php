@@ -24,17 +24,18 @@
     </head>
     <body class="antialiased">
 
-        <a href="{{ route('order.index') }}" class="btn btn-sm btn-info">Order List</a>
-        <a href="{{ route('product.create') }}" class="btn btn-sm btn-info">Add New Product</a>
-            Product Details
+        <a href="{{ route('product.index') }}" class="btn btn-sm btn-info">Product List</a>
+        <a href="{{ route('order.create') }}" class="btn btn-sm btn-info">Add New Order</a>
+        Order Details 
         <table width="100%" class="table table-bordered">
             <thead>
                 <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Image</th>
-                <th scope="col">Category</th>
-                <th scope="col">Price</th>
+                <th scope="col">Oder ID</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Net Amount</th>
+                <th scope="col">Order Date</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
                 </tr>
@@ -43,7 +44,8 @@
             @foreach ($data as $k => $val)
                 <tr>
                 <th scope="row">{{ ++$k }}</th>
-                <td>{{ $val->name }}</td>
+                <td>{{ $val->oderid }}</td>
+                <td>{{ $val->customername }}</td>
                 <td>{{ $val->src }}</td>
                 <td>@if ($val->category == '1') Television  @else Headphones @endif</td>
                 <td>{{ $val->amount }}</td>
