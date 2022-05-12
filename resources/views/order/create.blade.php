@@ -35,7 +35,7 @@
             <label for="orderid" class="col-md-2 col-form-label text-md-right">Order ID
             </label>
             <div class="col-md-9"> 
-                <input type="text" value="6666" readonly name="orderid" id="orderid" class="form-control" autocomplete="off" >                
+                <input type="text" value="6666"  name="orderid" id="orderid" class="form-control" autocomplete="off" >                
                 
             </div>
         </div>

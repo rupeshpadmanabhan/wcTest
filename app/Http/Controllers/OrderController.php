@@ -23,7 +23,7 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);    
+          
         Order::create($request->all());
                     
         return redirect('order.index')->with('msg', 'Order created!');
