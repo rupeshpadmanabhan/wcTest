@@ -23,43 +23,76 @@
         </style>
     </head>
     <body class="antialiased">
-        <a href="{{ route('product.create') }}" class="btn btn-sm btn-info">Add New Product</a>
 
-        <a href="{{ route('order.index') }}" class="btn btn-sm btn-info">Order List</a>
+    <a href="{{ route('product.index') }}" class="btn btn-sm btn-info">Products</a>
 
-        <table width="100%" class="table table-bordered">
-            <thead>
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Image</th>
-                <th scope="col">Category</th>
-                <th scope="col">Price</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach ($data as $k => $val)
-                <tr>
-                <th scope="row">{{ ++$k }}</th>
-                <td>{{ $val->name }}</td>
-                <td>{{ $val->src }}</td>
-                <td>@if ($val->category == '1') Television  @else Headphones @endif</td>
-                <td>{{ $val->amount }}</td>
-                <td><a href="{{ route('product.edit',$val->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
-                <td>
-                <form action="{{ route('product.destroy', $val->id)}}" method="post">  
-                @csrf  
-                @method('DELETE')  
-                <button class="btn btn-danger rounded btn-sm text-warning" type="submit" title="Delete">Delete</button>  
-                </form>  
-                </td>
-                </tr>
-            @endforeach  
-            </tbody>
-            </table>
+        <form method="POST" action="{{ route('product.update',$data->id) }}" >
+            @method('PATCH')     
+            @csrf
 
+            <div class="form-group row mt-4">
+                <label for="name" class="col-md-2 col-form-label text-md-right">Name
+                </label>
+                <div class="col-md-9"> 
+                    <input type="text" name="name" id="name" placeholder="Enter Name" class="form-control" autocomplete="off" autofocus="true" value="{{$data->name}}" >                
+                    @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row mt-4">
+                <label for="src" class="col-md-2 col-form-label text-md-right">Image<i class="text-danger">*</i>
+                </label>
+                <div class="col-md-9"> 
+                    <input type="file" name="src" id="src" class="form-control" autocomplete="off" value="{{$data->src}}">                  
+                    @error('src')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            
+            <div class="form-group row mt-4">
+                <label for="category" class="col-md-2 col-form-label text-md-right">Category
+                </label>
+                <div class="col-md-9"> 
+                    <select name="category" id="category" class="form-control">
+                    <option value="1" @if ($data->category == '1') selected @endif > Television</option>
+                    <option value="2" @if ($data->category == '2') selected @endif > Headphones</option> 
+                    </select>       
+                    @error('gender')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+           
+            <div class="form-group row mt-4">
+                <label for="amount" class="col-md-2 col-form-label text-md-right">Amount
+                </label>
+                <div class="col-md-9"> 
+                    <input type="text" name="amount" id="amount" value="{{$data->amount}}" class="form-control" autocomplete="off">                  
+                    @error('amount')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row  mt-4">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4 text-md-left">
+                    
+                <button  type="reset" id="reset" title="Click here to reset data" class="btn btn-secondary btn-outline-secondary">Reset</button>
+                </div>
+                    
+                    <div class="col-md-4">
+                    <button  type="submit" id="save"  title="Click here to save data" class="btn btn-success btn-outline-success">Save</button></div>
+            </div>
+            
+
+        </form>
 
     </body>
 </html>
