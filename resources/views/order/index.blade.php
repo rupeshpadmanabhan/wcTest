@@ -46,12 +46,12 @@
                 <th scope="row">{{ ++$k }}</th>
                 <td>{{ $val->oderid }}</td>
                 <td>{{ $val->customername }}</td>
-                <td>{{ $val->src }}</td>
-                <td>@if ($val->category == '1') Television  @else Headphones @endif</td>
-                <td>{{ $val->amount }}</td>
-                <td><a href="{{ route('product.edit',$val->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
+                <td>{{ $val->phonenumber }}</td>
+                <td></td>
+                <td></td>
+                <td><a href="{{ route('order.edit',$val->id) }}" class="btn btn-warning btn-sm">Edit</a></td>
                 <td>
-                <form action="{{ route('product.destroy', $val->id)}}" method="post">  
+                <form action="{{ route('order.destroy', $val->id)}}" method="post">  
                 @csrf  
                 @method('DELETE')  
                 <button class="btn btn-danger rounded btn-sm text-warning" type="submit" title="Delete">Delete</button>  

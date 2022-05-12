@@ -26,9 +26,11 @@
 
     <a href="{{ route('product.index') }}" class="btn btn-sm btn-info">Products</a>
 
+    Enter product details below
+
     <form method="post" action="{{ route('product.store') }}">
     @csrf
-    Enter product details below
+    
         <div class="form-group row mt-4">
             <label for="name" class="col-md-2 col-form-label text-md-right">Name
             </label>

@@ -24,16 +24,18 @@
     </head>
     <body class="antialiased">
 
-    <a href="{{ route('product.index') }}" class="btn btn-sm btn-info">Products</a>
+    <a href="{{ route('order.index') }}" class="btn btn-sm btn-info">Order details</a>
 
-    <form method="post" action="{{ route('product.store') }}">
-    @csrf
     Enter order details below
+
+    <form method="post" action="{{ route('order.store') }}">
+    @csrf
+    
         <div class="form-group row mt-4">
             <label for="orderid" class="col-md-2 col-form-label text-md-right">Order ID
             </label>
             <div class="col-md-9"> 
-                <input type="text" readonly name="orderid" id="orderid" class="form-control" autocomplete="off" >                
+                <input type="text" value="6666" readonly name="orderid" id="orderid" class="form-control" autocomplete="off" >                
                 
             </div>
         </div>
@@ -44,7 +46,7 @@
                 <label for="customername" class="col-md-2 col-form-label text-md-right">Customer Name<i class="text-danger">*</i>
                 </label>
                 <div class="col-md-9"> 
-                    <input type="text" name="customername" id="customername" class="form-control" autocomplete="off" autofocus="true" value="{{ old('customername') }}">                  
+                    <input type="text" required name="customername" id="customername" class="form-control" autocomplete="off" autofocus="true" value="{{ old('customername') }}">                  
                     @error('customername')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -56,7 +58,7 @@
                 <label for="phonenumber" class="col-md-2 col-form-label text-md-right">Phone Number
                 </label>
                 <div class="col-md-9"> 
-                    <input type="number" name="phonenumber" id="phonenumber" value="{{ old('phonenumber') }}" class="form-control" autocomplete="off">                  
+                    <input type="number" required name="phonenumber" id="phonenumber" value="{{ old('phonenumber') }}" class="form-control" autocomplete="off">                  
                     @error('phonenumber')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -64,22 +66,25 @@
             </div>
             <input type="button" class="add-row btn btn-primary" value="Add Row"> - <button type="button" class="delete-row btn btn-danger">Delete Row</button>
             <table class="table table-bordered table-striped">
-                                <tbody id="emp_details">
-                                    <tr>
-                                        <th>#</th>
+                <thead>
+                <tr>
+                                        <th>To Remove</th>
                                         <th>Product</th>
                                         <th>No Of Quantity</th>   
-                                        <th>Remove</th>                                
-                                    </tr>               
+                                                                       
+                                    </tr>  
+                </thead>
+                                <tbody id="emp_details">
+                                                 
                                     <tr>													
                                     <td><input type='checkbox' name='record[]'></td>
-                                        <td><select name='product_id[]' class='form-control'> 
+                                        <td><select name='product_id[]' class='form-control' required> 
                                         @foreach($data as $val)
                                                 <option value='{{ $val->id }}'>{{ $val->name }}</option>
                                             @endforeach
                                             </select></td>
-                                        <td><input type='text' name='qty[]'></td>   
-                                        <td></td>                         									
+                                        <td><input required type='number' name='qty[]' class="form-control"></td>   
+                                                          									
                                     </tr>
                                 </tbody>
                             </table>
@@ -109,10 +114,8 @@ $(document).ready(function()
 {  
     $(".add-row").click(function()
     {  
-        var html  = "";
-        		
- 
-        $("table tbody#emp_details").append(html);
+        $( "table tbody#emp_details" ).clone().appendTo( "table tbody#emp_details" );
+
     });
 
    // Find and remove selected table rows
